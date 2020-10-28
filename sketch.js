@@ -1,7 +1,9 @@
 var zenia,Tourus,Cyclap,wall1,wall2,wall3;
+var spped, weight;
+
 
 function setup() {
-  createCanvas(800,400);
+  createCanvas(1000,400);
 
   wall1=createSprite(790,50,10,40);
   
@@ -19,25 +21,81 @@ function setup() {
   Cyclap=createSprite(20,350,20,20);
   Cyclap.velocityX=9;
 
+  speed1=random(65,105);
+  speed2=random(65,105);
+  speed3=random(65,105);
 
-  console.log("zenia:deformation=(0.5 x 2260 x 60 x 60)/22500 = 180.           score:verybad")
-  console.log("Tourus:deformation=(0.5 x 1522 x 50 x 50)/22500 = 84.           score:verygood")
-  console.log("Cyclap:deformation=(0.5 x 3000	 x 45 x 45)/22500 = 134.           score:OK")
+  weight1=random(400,1500);
+  weight2=random(400,1500);
+  weight3=random(400,1500);
+
 
 }
 
 function draw() {
   background("black");  
   
+  zenia.velocityX=speed1;
+  Tourus.velocityX=speed2;
+  Cyclap.velocityX=speed3;
+
   Tourus.shapecolor="blue";
   Cyclap.shapecolor="green";
   zenia.shapecolor="yellow";
 
-  if (isTouching(zenia,wall1)){
+  if (wall1.x-zenia.x<(zenia.width+wall1.width)/2){
     zenia.velocityX=0;
-    Tourus.velocityX=0;
-    Cyclap.velocityX=0;
+
+    var deformation =0.5*weight1*speed1*speed1/25509;
+
+    if (deformation>180){
+       zenia.shapeColor="red";
+    }
+
+    if (deformation<180 && deformation>100){
+      zenia.shapeColor="yellow";
+   }
+
+   if (deformation<100){
+    zenia.shapeColor="green";
+   }
   }
+
+  if (wall2.x-Tourus.x<(Tourus.width+wall2.width)/2){
+    Tourus.velocityX=0;
+
+    var deformation =0.5*weight2*speed2*speed2/25509;
+
+    if (deformation>180){
+      Tourus.shapeColor="red";
+    }
+
+    if (deformation<180 && deformation>100){
+      Tourus.shapeColor="yellow";
+   }
+
+   if (deformation<100){
+    Tourus.shapeColor="green";
+   }
+  }
+
+  if (wall2.x-Cyclap.x<(Cyclap.width+wall2.width)/2){
+    Cyclap.velocityX=0;
+
+    var deformation =0.5*weight3*speed3*speed3/25500;
+
+    if (deformation>180){
+      Cyclap.shapeColor="red";
+    }
+
+    if (deformation<180 && deformation>100){
+      Cyclap.shapeColor="yellow";
+   }
+
+   if (deformation<100){
+    Cyclap.shapeColor="green";
+   }
+  }  
 
   drawSprites();
 }
